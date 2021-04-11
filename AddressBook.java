@@ -1,105 +1,174 @@
 import java.util.*;
 
+	
 public class AddressBook
 {
-	public String first_name,last_name,address, city;
-	public String state,zip,phone,email;
+	public ArrayList<String> first_name = new ArrayList<String>();
+	public ArrayList<String> last_Name = new ArrayList<String>();
+	public ArrayList<String> address = new ArrayList<String>();
+	public ArrayList<String> city = new ArrayList<String>();
+	public ArrayList<String> state = new ArrayList<String>();
+	public ArrayList<String> zip = new ArrayList<String>();
+	public ArrayList<String> phone = new ArrayList<String>();
+	public ArrayList<String> email = new ArrayList<String>();
 	
 	
-	public void setDetails(AddressBook person)
+	
+	//UC1 Set detalis for new person
+	public void setDetails()
 	{
 		Scanner sc = new Scanner(System.in);
-		
-		System.out.println();
-		System.out.println("Enter Details of New person");
-		System.out.println("Enter the First Name: ");
-		person.first_name = sc.nextLine();
-		System.out.println("Enter the Last Name: ");
-		person.last_name = sc.nextLine();
-		System.out.println("Enter the Address: ");
-		person.address = sc.nextLine();
-		System.out.println("Enter the Name of city: ");
-		person.city = sc.nextLine();
-		System.out.println("Enter the Name of state");
-		person.state = sc.nextLine();
-		System.out.println("Enter the Name of zip code ");
-		person.zip = sc.nextLine();
-		System.out.println("Enter the Phone Number: ");
-		person.phone = sc.nextLine();
-		System.out.println("Enter the Email address: ");
-		person.email = sc.nextLine();
-	}	
 	
-	public void showDetails(AddressBook person)
-	{
-		System.out.println();
-		System.out.println("Details of " + person.first_name + " person");
-		System.out.print("First Name: "+person.first_name+ "\nLast Name: "+person.last_name+ "\nAddress: "+person.address+ "\nCity: "+person.city);
-		System.out.print("\nstate: "+person.state+ "\nzip code: "+person.zip+ "\nPhone no.: "+person.phone+ "\nEmail: "+person.email);
-		System.out.println();
-	}
-	
-	public void editDetails(AddressBook person)
-	{	
-		Scanner edit = new Scanner(System.in);
-		System.out.println("Do you want to edit details of '" +person.first_name+ "' ? select y/n");
-		String check = edit.next();
-		if(check.equalsIgnoreCase("y"))
+		while(true)
 		{
-			System.out.println("Enter the First name of person whose details want to edit");
-			String name = edit.next();
+			System.out.println();
+			System.out.println("Set details for New person"); 
 			
-			if(name.equalsIgnoreCase(person.first_name))
-			{	
-				System.out.println();
+			System.out.println("Enter the First Name: ");
+			first_name.add(sc.nextLine());
+			System.out.println("Enter the Last Name: ");
+			last_Name.add(sc.nextLine());
+			System.out.println("Enter the Address: ");
+			address.add(sc.nextLine());
+			System.out.println("Enter the Name of city: ");
+			city.add(sc.nextLine());
+			System.out.println("Enter the Name of state");
+			state.add(sc.nextLine());
+			System.out.println("Enter the Name of zip code ");
+			zip.add(sc.nextLine());
+			System.out.println("Enter the Phone Number: ");
+			phone.add(sc.nextLine());
+			System.out.println("Enter the Email address: ");
+			email.add(sc.nextLine());
+			
+			System.out.println();
+			System.out.println("Do yoy want to set another person details select y/n");
+		
+			String choose = sc.nextLine();
+			if(choose.equalsIgnoreCase("y"))
+			{
+				continue;
+			}
 				
-				System.out.println("Enter the First Name: ");
-				person.first_name = edit.nextLine();
-				System.out.println("Enter the Last Name: ");
-				person.last_name = edit.nextLine();
-				System.out.println("Enter the Address: ");
-				person.address = edit.nextLine();
-				System.out.println("Enter the Name of city: ");
-				person.city = edit.nextLine();
-				System.out.println("Enter the Name of state");
-				person.state = edit.nextLine();
-				System.out.println("Enter the Name of zip code ");
-				person.zip = edit.nextLine();
-				System.out.println("Enter the Phone Number: ");
-				person.phone = edit.nextLine();
-				System.out.println("Enter the Email address: ");
-				person.email = edit.nextLine();
+			else if(choose.equalsIgnoreCase("n"))
+			{
+				System.out.println("Thank you");
+				break;
 			}
 			else
-				System.out.println("not any person of available of this name");
+				System.out.println("Invalide input");
 		}
-		else if(check.equalsIgnoreCase("n"))
-			System.out.println("you Selected 'NO' "); 
+
+	}	
+	
+	//UC2 Shows details of person who present in book
+	public void showDetails()
+	{
+		Scanner shows = new Scanner(System.in);
+		System.out.println();
+		
+		System.out.println("Enter the First name of person whose details want to show");
+		String showName = shows.next();
+		int position =first_name.indexOf(showName);
+			
+		if(first_name.contains(showName))
+		{
+			System.out.println(first_name.get(position));
+			System.out.println(last_Name.get(position));
+			System.out.println(address.get(position));
+			System.out.println(city.get(position));
+			System.out.println(state.get(position));
+			System.out.println(zip.get(position));
+			System.out.println(phone.get(position));
+			System.out.println(email.get(position));
+			
+		}
 		else
-			System.out.println("inavalid option");
+			System.out.println("Thie Person is not available in book ");
+		
+	
 	}
 	
-		
-	public void deleteDetails(AddressBook person)
+	//UC3 Edit the details of persons using name of person
+	public void editDetails()
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println("Do you want to edit details of person? select y/n");
+		String check = sc.next();
+			
+		if(check.equalsIgnoreCase("y"))
+		{
+			while(true)
+			{
+				System.out.println("Enter the First name of person whose details want to edit");
+				String editName = sc.next();
+				int pos = first_name.indexOf(editName);
+				
+				if(first_name.contains(editName))
+				{	
+					System.out.println();
+				
+					System.out.println("Enter the First Name: ");
+					first_name.set(pos,sc.nextLine());
+					System.out.println("Enter the Last Name: ");
+					last_Name.set(pos,sc.nextLine());
+					System.out.println("Enter the Address: ");
+					address.set(pos,sc.nextLine());
+					System.out.println("Enter the Name of city: ");
+					city.set(pos,sc.nextLine());
+					System.out.println("Enter the Name of state");
+					state.set(pos,sc.nextLine());
+					System.out.println("Enter the Name of zip code ");
+					zip.set(pos,sc.nextLine());
+					System.out.println("Enter the Phone Number: ");
+					phone.set(pos,sc.nextLine());
+					System.out.println("Enter the Email address: ");
+					email.set(pos,sc.nextLine());
+					break;
+				}
+				else
+					System.out.println("not any person of available of this name");
+			}
+		}
+		else if(check.equalsIgnoreCase("n"))
+		{
+			System.out.println("you Selected 'NO'");
+		}
+		else
+		{
+			System.out.println("inavalid option choose correct ");
+			editDetails();
+		}
+		System.out.println("Firs_name: " +first_name+ " \nlast_name: "+last_Name+ "\nAddress: "+address+ " \ncity: "+city+
+				"\nstate: "+state+ "\nzipcode: "+zip+ "\nPhoneNumber: "+phone+ "\nEmail: " +email);
+	
+	
+	}
+	
+	//UC4 delete the details of persons from address book
+	public void deleteDetails()
 	{
 		Scanner delete = new Scanner(System.in);
-		System.out.println("Do you want to delete the details of '" +person.first_name+ "' ? select y/n ");
+		System.out.println("Do you want to delete the details ? select y/n ");
 		String check = delete.next();
+		
 		if(check.equalsIgnoreCase("y"))
 		{
 			System.out.print("Enter the First name of person whose details want to delete ");
 			String deleteName = delete.next();
+			int pos = first_name.indexOf(deleteName);
 			
-			if(deleteName.equalsIgnoreCase(person.first_name))
+			if(first_name.contains(deleteName))
 			{
-				person.first_name = " ";
-				person.last_name = " ";
-				person.address = " ";
-				person.city = " ";
-				person.state = " ";
-				person.zip = " ";
-				person.phone = " ";
-				person.email = " ";
+				first_name.remove(pos);
+				last_Name.remove(pos);
+				address.remove(pos);
+				city.remove(pos);
+				state.remove(pos);
+				zip.remove(pos);
+				phone.remove(pos);
+				email.remove(pos);
 			}
 			
 			System.out.println("Successfully delete details of " +deleteName);
@@ -111,24 +180,48 @@ public class AddressBook
 			System.out.println("inavalid option");
 			
 	}
-
-	
-	
 	
 	
 	public static void main(String[] args)
 	{
-		AddressBook atharva = new AddressBook();
-		AddressBook ram = new AddressBook();
+		AddressBook book = new AddressBook();
 		
-		atharva.setDetails(atharva);   // Adding new details of atharva object
-		atharva.showDetails(atharva);  // Display details of atharva
-
-		 
+	    Scanner user = new Scanner(System.in);
+		System.out.println("choose the option from below");
 		
-		atharva.deleteDetails(atharva); // delete details of atharva object
-		atharva.showDetails(atharva);
 		
+		while(true)
+		{
+			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Exit"); 
+			int select = user.nextInt();
+			
+			switch(select)
+			{
+				case 1:
+					book.setDetails();
+					break;
+					
+				case 2:
+					book.showDetails();
+					break;
+				
+				case 3:
+					book.deleteDetails();
+					break;
+					
+				case 4:
+					book.editDetails();
+					break;
+					
+				case 5:
+					System.exit(0);
+					break;
+				default : 
+					System.out.println("Invalid Input");
+					
+					
+			}
+		}
 		
 		
 	}
