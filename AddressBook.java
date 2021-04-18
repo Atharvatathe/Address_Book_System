@@ -3,14 +3,14 @@ import java.util.*;
 
 class Contact{
 	
-	protected ArrayList<String> first_name = new ArrayList<String>();
-	protected ArrayList<String> last_Name = new ArrayList<String>();
-	protected ArrayList<String> address = new ArrayList<String>();
-	protected ArrayList<String> city = new ArrayList<String>();
-	protected ArrayList<String> state = new ArrayList<String>();
-	protected ArrayList<String> zip = new ArrayList<String>();
-	protected ArrayList<String> phone = new ArrayList<String>();
-	protected ArrayList<String> email = new ArrayList<String>();
+	protected static ArrayList<String> first_name = new ArrayList<String>();
+	protected static ArrayList<String> last_Name = new ArrayList<String>();
+	protected static ArrayList<String> address = new ArrayList<String>();
+	protected static ArrayList<String> city = new ArrayList<String>();
+	protected static ArrayList<String> state = new ArrayList<String>();
+	protected static ArrayList<String> zip = new ArrayList<String>();
+	protected static ArrayList<String> phone = new ArrayList<String>();
+	protected static ArrayList<String> email = new ArrayList<String>();
 	
 	protected static Map<String,AddressBook> multipleBooks = new HashMap<String,AddressBook>();
 	
@@ -50,6 +50,7 @@ public class AddressBook extends Contact{
 		
 		while(true)
 		{
+			System.out.println();
 			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Exit"); 
 			int select = user.nextInt();
 			
@@ -100,7 +101,14 @@ public class AddressBook extends Contact{
 			System.out.println("Set details for New person"); 
 			
 			System.out.println("Enter the First Name: ");
-			first_name.add(sc.nextLine());
+			String firstName = sc.nextLine();
+			boolean check = checkIsDuplicate(firstName);
+			if(check == false)
+				first_name.add(firstName);
+			else{
+				System.out.println("person is already exist");
+				break;
+			}
 			System.out.println("Enter the Last Name: ");
 			last_Name.add(sc.nextLine());
 			System.out.println("Enter the Address: ");
@@ -254,6 +262,14 @@ public class AddressBook extends Contact{
 		else
 			System.out.println("inavalid option");
 			
+	}
+	
+	public static boolean checkIsDuplicate(String personName){
+		if(first_name.contains(personName))
+			return true;
+		else
+			return false;
+		
 	}
 	
 	
