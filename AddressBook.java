@@ -1,20 +1,95 @@
-import java.util.*;
+import java.util.*;	
 
+
+class Contact{
 	
-public class AddressBook
-{
-	public ArrayList<String> first_name = new ArrayList<String>();
-	public ArrayList<String> last_Name = new ArrayList<String>();
-	public ArrayList<String> address = new ArrayList<String>();
-	public ArrayList<String> city = new ArrayList<String>();
-	public ArrayList<String> state = new ArrayList<String>();
-	public ArrayList<String> zip = new ArrayList<String>();
-	public ArrayList<String> phone = new ArrayList<String>();
-	public ArrayList<String> email = new ArrayList<String>();
+	protected ArrayList<String> first_name = new ArrayList<String>();
+	protected ArrayList<String> last_Name = new ArrayList<String>();
+	protected ArrayList<String> address = new ArrayList<String>();
+	protected ArrayList<String> city = new ArrayList<String>();
+	protected ArrayList<String> state = new ArrayList<String>();
+	protected ArrayList<String> zip = new ArrayList<String>();
+	protected ArrayList<String> phone = new ArrayList<String>();
+	protected ArrayList<String> email = new ArrayList<String>();
+	
+	protected static Map<String,AddressBook> multipleBooks = new HashMap<String,AddressBook>();
+	
+}
+	
+	
+
+public class AddressBook extends Contact{
+	
+	// Add Multiple Address Books
+	
+	public static void setMultipleBook(){
+		Scanner user = new Scanner(System.in);
+		System.out.println("List of Address Books: ");
+		for(Map.Entry m :multipleBooks.entrySet()){
+			System.out.println(m.getKey());
+		}
+		while(true){
+		System.out.println("Enter key of AddressBook which you have to access ");
+		String key = user.nextLine();
+		if(multipleBooks.containsKey(key)){
+			chooseOption(multipleBooks.get(key));
+			break;
+		}
+		else
+			System.out.println("Invalid Key Enter Correct key");
+		}
+	}
+	
+	
+	//Choose Differnt option for fill Details 
+	public static void chooseOption(AddressBook book)
+	{
+		Scanner user = new Scanner(System.in);
+		System.out.println("choose the option from below");
+		
+		
+		while(true)
+		{
+			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Exit"); 
+			int select = user.nextInt();
+			
+			switch(select)
+			{
+				case 1:
+					book.setDetails();
+					break;
+					
+				case 2:
+					book.showDetails();
+					break;
+				
+				case 3:
+					book.deleteDetails();
+					break;
+					
+				case 4:
+					book.editDetails();
+					break;
+					
+				case 5:
+					setMultipleBook();
+					break;
+				
+				case 6:
+					System.exit(0);
+					break;
+				default : 
+					System.out.println("Invalid Input");
+					
+					
+			}
+		}
+		
+	}
 	
 	
 	
-	//UC1 Set detalis for new person
+	//Set detalis for new person
 	public void setDetails()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -61,7 +136,7 @@ public class AddressBook
 
 	}	
 	
-	//UC2 Shows details of person who present in book
+	//Shows details of person who present in book
 	public void showDetails()
 	{
 		Scanner shows = new Scanner(System.in);
@@ -89,7 +164,7 @@ public class AddressBook
 	
 	}
 	
-	//UC3 Edit the details of persons using name of person
+	//Edit the details of persons using name of person
 	public void editDetails()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -146,7 +221,7 @@ public class AddressBook
 	
 	}
 	
-	//UC4 delete the details of persons from address book
+	//delete the details of persons from address book
 	public void deleteDetails()
 	{
 		Scanner delete = new Scanner(System.in);
@@ -182,47 +257,30 @@ public class AddressBook
 	}
 	
 	
-	public static void main(String[] args)
-	{
-		AddressBook book = new AddressBook();
+	
+	public static void main(String[] args){
 		
-	    Scanner user = new Scanner(System.in);
-		System.out.println("choose the option from below");
+		AddressBook AddressBook1 = new AddressBook();
+		AddressBook AddressBook2 = new AddressBook();
+	
+		multipleBooks.put("AddressBook1",AddressBook1);
+		multipleBooks.put("AddressBook2",AddressBook2);
 		
-		
-		while(true)
-		{
-			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Exit"); 
-			int select = user.nextInt();
-			
-			switch(select)
-			{
-				case 1:
-					book.setDetails();
-					break;
-					
-				case 2:
-					book.showDetails();
-					break;
-				
-				case 3:
-					book.deleteDetails();
-					break;
-					
-				case 4:
-					book.editDetails();
-					break;
-					
-				case 5:
-					System.exit(0);
-					break;
-				default : 
-					System.out.println("Invalid Input");
-					
-					
-			}
-		}
-		
-		
+		setMultipleBook();
+
 	}
+	
+	
+	
 }
+
+
+
+	
+	
+
+	    
+		
+
+	
+
