@@ -51,7 +51,7 @@ public class AddressBook extends Contact{
 		while(true)
 		{
 			System.out.println();
-			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Exit"); 
+			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n7)Exit"); 
 			int select = user.nextInt();
 			
 			switch(select)
@@ -75,8 +75,10 @@ public class AddressBook extends Contact{
 				case 5:
 					setMultipleBook();
 					break;
-				
 				case 6:
+					searchPersonIncity();
+					break;
+				case 7:
 					System.exit(0);
 					break;
 				default : 
@@ -269,6 +271,17 @@ public class AddressBook extends Contact{
 			return true;
 		else
 			return false;
+		
+	}
+	
+	public static void searchPersonIncity(){
+		
+		Scanner search = new Scanner(System.in);
+		System.out.println();
+		System.out.println("Enter the person Name whose city want to search");
+		String person = search.nextLine();
+		int position = first_name.indexOf(person);
+		System.out.println("City of person: " +city.get(position)+ " State: "+state.get(position)) ;
 		
 	}
 	
