@@ -51,7 +51,7 @@ public class AddressBook extends Contact{
 		while(true)
 		{
 			System.out.println();
-			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n7)Exit"); 
+			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n7)Search person in state\n8)Exit"); 
 			int select = user.nextInt();
 			
 			switch(select)
@@ -75,12 +75,19 @@ public class AddressBook extends Contact{
 				case 5:
 					setMultipleBook();
 					break;
+				
 				case 6:
 					searchPersonIncity();
 					break;
+				
 				case 7:
+					searchPersonInstate();
+					break;
+				
+				case 8:
 					System.exit(0);
 					break;
+				
 				default : 
 					System.out.println("Invalid Input");
 					
@@ -273,17 +280,41 @@ public class AddressBook extends Contact{
 			return false;
 		
 	}
-	
 	public static void searchPersonIncity(){
+	Scanner userInput=new Scanner(System.in);
+        	System.out.print("Enter city name :");
+        	int flag=0;
+        	String cityName=userInput.nextLine();
+        	for(Map.Entry m : multipleBooks.entrySet()){
+        	    	AddressBook addressbook=(AddressBook) m.getValue();
+            		for(String city : addressbook.city) {
+                		if(city.equalsIgnoreCase(cityName)) {
+                    		flag=1;
+                    		System.out.println(first_name.get()+" "+last_Name.get());
+                		}
+            		}
+        	}
+        	if(flag==0)
+            	System.out.println("This City does not exists!");
+    	}
 		
-		Scanner search = new Scanner(System.in);
-		System.out.println();
-		System.out.println("Enter the person Name whose city want to search");
-		String person = search.nextLine();
-		int position = first_name.indexOf(person);
-		System.out.println("City of person: " +city.get(position)+ " State: "+state.get(position)) ;
-		
-	}
+	public static void searchPersonInState(){
+	Scanner user = new Scanner(System.in);
+        	System.out.print("Enter State name :");
+        	int flag=0;
+        	String stateName=user.nextLine();
+        	for(Map.Entry m : multipleBooks.entrySet()){
+        	    	AddressBook addressbook=(AddressBook) m.getValue();
+            		for(String city : addressbook.city) {
+                		if(state.equalsIgnoreCase(stateName)) {
+                    		flag=1;
+                    		System.out.println(first_name.get()+" "+last_Name.get());
+                		}
+            		}
+        	}
+        	if(flag==0)
+            	System.out.println("This state does not exists!");
+    	}
 	
 	
 	
