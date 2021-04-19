@@ -81,7 +81,7 @@ public class AddressBook extends Contact{
 					break;
 				
 				case 7:
-					searchPersonInstate();
+					searchPersonInState();
 					break;
 				
 				case 8:
@@ -281,36 +281,36 @@ public class AddressBook extends Contact{
 		
 	}
 	public static void searchPersonIncity(){
-	Scanner userInput=new Scanner(System.in);
-        	System.out.print("Enter city name :");
-        	int flag=0;
-        	String cityName=userInput.nextLine();
-        	for(Map.Entry m : multipleBooks.entrySet()){
-        	    	AddressBook addressbook=(AddressBook) m.getValue();
-            		for(String city : addressbook.city) {
-                		if(city.equalsIgnoreCase(cityName)) {
-                    		flag=1;
-                    		System.out.println(first_name.get()+" "+last_Name.get());
-                		}
-            		}
+		Scanner userInput=new Scanner(System.in);
+        System.out.print("Enter city name :");
+        int flag=0;
+        String cityName=userInput.nextLine();
+        for(Map.Entry m : multipleBooks.entrySet()){
+        	AddressBook addressbook=(AddressBook) m.getValue();
+            for(String city : addressbook.city) {
+                if(city.equalsIgnoreCase(cityName)) {
+                    	flag=1;
+                    	System.out.println(first_name);
+                	}
+            	}
         	}
         	if(flag==0)
             	System.out.println("This City does not exists!");
     	}
 		
 	public static void searchPersonInState(){
-	Scanner user = new Scanner(System.in);
-        	System.out.print("Enter State name :");
-        	int flag=0;
-        	String stateName=user.nextLine();
-        	for(Map.Entry m : multipleBooks.entrySet()){
-        	    	AddressBook addressbook=(AddressBook) m.getValue();
-            		for(String city : addressbook.city) {
-                		if(state.equalsIgnoreCase(stateName)) {
-                    		flag=1;
-                    		System.out.println(first_name.get()+" "+last_Name.get());
-                		}
-            		}
+		Scanner user = new Scanner(System.in);
+        System.out.print("Enter State name :");
+        int flag=0;
+        String stateName=user.nextLine();
+        for(Map.Entry m : multipleBooks.entrySet()){
+        	AddressBook addressbook=(AddressBook) m.getValue();
+            for(String state : addressbook.state) {
+           		if(state.equalsIgnoreCase(stateName)) {
+                    	flag=1;
+                    	System.out.println(first_name);
+                	}
+            	}
         	}
         	if(flag==0)
             	System.out.println("This state does not exists!");
