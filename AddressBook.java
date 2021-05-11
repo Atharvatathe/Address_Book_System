@@ -1,5 +1,12 @@
 import java.util.*;	
-
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.io.*;
 
 class Contact{
 	
@@ -19,6 +26,8 @@ class Contact{
 	
 
 public class AddressBook extends Contact{
+	
+	static HashMap<Contact,String> personsInCity = new HashMap<Contact,String>();
 	
 	// Add Multiple Address Books
 	
@@ -51,7 +60,7 @@ public class AddressBook extends Contact{
 		while(true)
 		{
 			System.out.println();
-			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n7)Search person in state\n8)Exit"); 
+			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n7)Search person in state\n8)Count the person by city\n9)Exit"); 
 			int select = user.nextInt();
 			
 			switch(select)
@@ -85,6 +94,10 @@ public class AddressBook extends Contact{
 					break;
 				
 				case 8:
+					countPersonsByCity();
+					break;
+				
+				case 9:
 					System.exit(0);
 					break;
 				
@@ -315,6 +328,30 @@ public class AddressBook extends Contact{
         	if(flag==0)
             	System.out.println("This state does not exists!");
     	}
+	
+	
+        public static void countPersonsByCity(){
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter the city name ");
+			String cityName= sc.nextLine();
+        	List<Contact>personsInCity=getPersonsByCity(cityName);
+        	if(personsInCity.isEmpty())
+        		System.out.println("City "+cityName+" Does Not Exists !");
+        	else
+        		System.out.println("Total No. Of Persons Found In "+cityName.toUpperCase()+" Are :"+personsInCity.stream().count());
+        }
+		
+		public static List<Contact> getPersonsByCity(String cityName) {
+		List<Contact> list = personsInCity.entrySet()
+		   		  		 .stream()
+						 .filter(city->city.getValue().equalsIgnoreCase(cityName))
+					     .map(personInCity->personInCity.getKey())
+						 .collect(Collectors.toList());
+        	return list;
+	}
+
+    
+	
 	
 	
 	
