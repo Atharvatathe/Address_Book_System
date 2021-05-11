@@ -351,9 +351,12 @@ public class AddressBook extends Contact{
 	}
 
     
+<<<<<<< HEAD
 	
 	
 	
+=======
+>>>>>>> UC10_GetNumberofContactPerson
 	
 	public static void main(String[] args){
 		
