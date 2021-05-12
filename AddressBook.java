@@ -60,7 +60,7 @@ public class AddressBook extends Contact{
 		while(true)
 		{
 			System.out.println();
-			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n7)Search person in state\n8)Count the person by city\n9)Sort person by name\n10)Exit"); 
+			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n7)Search person in state\n8)Count the person by city\n9)Sort person by name\n10)Sort By City\n11)Sort by state\n12)Sort by zip\n13)Exit"); 
 			int select = user.nextInt();
 			
 			switch(select)
@@ -100,8 +100,20 @@ public class AddressBook extends Contact{
 				case 9:
 					sortByName();
 					break;
-				
+					
 				case 10:
+					 sortPersonsByCity();
+					 break;
+					 
+				case 11:
+					sortPersonsByState();
+					break;
+						
+				case 12:
+					sortPersonsByZipCode();
+					break;
+					
+				case 13:
 					System.exit(0);
 					break;
 				
@@ -356,10 +368,40 @@ public class AddressBook extends Contact{
 	}
 	
 	
-		public static void sortByName(){
-			first_name.stream().sorted().forEach(System.out::println);
+	public static void sortByName(){
+		List<String> name = first_name.stream().sorted().
+							 collect(Collectors.toList());
+		System.out.println("Sorted list by name");
+		name.forEach(System.out::println);
 			
-		}
+	}
+	
+	public static void sortPersonsByCity() {
+		List<String> cityName = city.stream().sorted().
+								 collect(Collectors.toList());
+		System.out.println("Sorted list by city");
+		cityName.forEach(System.out::println);
+
+	}
+
+	
+      
+	public static void sortPersonsByState() {
+		List<String> stateName = state.stream().sorted().
+								  collect(Collectors.toList());
+		System.out.println("Sorted list by state");
+		stateName.forEach(System.out::println);
+
+	}
+        
+	public static void sortPersonsByZipCode() {
+		List<String> zipcode = zip.stream().sorted().
+								collect(Collectors.toList());
+		System.out.println("Sorted list by zipcode");
+		zipcode.forEach(System.out::println);
+	}
+	
+	
 	public static void main(String[] args){
 		
 		AddressBook AddressBook1 = new AddressBook();
