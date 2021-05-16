@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
@@ -6,9 +7,11 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.chrono.JapaneseChronology;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,29 +20,13 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.io.*;
 
-class Contact{
-
-	protected static ArrayList<String> first_name = new ArrayList<String>();
-	protected static ArrayList<String> last_Name = new ArrayList<String>();
-	protected static ArrayList<String> address = new ArrayList<String>();
-	protected static ArrayList<String> city = new ArrayList<String>();
-	protected static ArrayList<String> state = new ArrayList<String>();
-	protected static ArrayList<String> zip = new ArrayList<String>();
-	protected static ArrayList<String> phone = new ArrayList<String>();
-	protected static ArrayList<String> email = new ArrayList<String>();
-
-	protected static Map<String,AddressBook> multipleBooks = new HashMap<String,AddressBook>();
-
-}
-
-
-
 public class AddressBook extends Contact{
 
 	static HashMap<Contact,String> personsInCity = new HashMap<Contact,String>();
 	static  ArrayList<String> list;
 
 	public static String CSV_CONTACT_FILE_PATH = "D:\\Intellij project\\AddressBook\\src\\main\\resources\\Contact.csv";
+	public static String JSON_USER_FILE_PATH = "D:\\Intellij project\\AddressBook\\src\\main\\resources\\User.json";
 
 	// Add Multiple Address Books
 
@@ -74,7 +61,8 @@ public class AddressBook extends Contact{
 			System.out.println("1)Set details of new person\n2)Show details of person\n3)Delete details of person\n" +
 					"4)edit the details of person\n5)Goto other AddressBook\n6)Search person in city\n" +
 					"7)Search person in state\n8)Count the person by city\n9)Sort person by name\n10)Sort By City\n" +
-					"11)Sort by state\n12)Sort by zip\n13)WriteToFile\n14)readFromFile\n15)WriteOrReadCsvFile\n16)Exit");
+					"11)Sort by state\n12)Sort by zip\n13)WriteToFile\n14)readFromFile\n15)WriteOrReadCsvFile\n" +
+					"16)WriteORReadJsonFile\n17)Exit");
 			int select = user.nextInt();
 
 			switch(select)
@@ -152,6 +140,10 @@ public class AddressBook extends Contact{
 					break;
 
 				case 16:
+					writeOrReadJsonFile();
+					break;
+
+					case 17:
 					System.exit(0);
 					break;
 
@@ -504,6 +496,47 @@ public class AddressBook extends Contact{
 				}
 				break;
 			}else
+				System.out.println("Select valid option");
+
+		}
+	}
+
+	public static void writeOrReadJsonFile() throws IOException {
+		Scanner select = new Scanner(System.in);
+		System.out.println("Select 'W' to Write in to Csv file and 'R' for Read the file ");
+		while (true) {
+			String check = select.nextLine();
+			if (check.equalsIgnoreCase("w")) {
+				try {
+					Gson gson = new Gson();
+					FileWriter fileWriter = new FileWriter(JSON_USER_FILE_PATH);
+					gson.toJson(Contact.first_name, fileWriter);
+					gson.toJson(Contact.last_Name, fileWriter);
+					gson.toJson(Contact.address, fileWriter);
+					gson.toJson(Contact.city, fileWriter);
+					gson.toJson(Contact.state, fileWriter);
+					gson.toJson(Contact.zip, fileWriter);
+					gson.toJson(Contact.phone, fileWriter);
+					gson.toJson(Contact.email, fileWriter);
+					fileWriter.close();
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+				break;
+
+			} else if (check.equalsIgnoreCase("R")) {
+				try{
+					Gson gson = new Gson();
+					Reader reader = new FileReader(JSON_USER_FILE_PATH);
+					Contact.first_name = gson.fromJson(reader, (Type) Contact.class);
+					System.out.println(first_name);
+					reader.close();
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+				break;
+
+			} else
 				System.out.println("Select valid option");
 
 		}
