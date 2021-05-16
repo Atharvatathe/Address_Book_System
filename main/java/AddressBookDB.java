@@ -3,6 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBookDB {
+
+    public static AddressBookDB adderessbookDBservice;
+
+    public static AddressBookDB getInstance(){
+        if(adderessbookDBservice == null)
+            adderessbookDBservice = new AddressBookDB();
+        return adderessbookDBservice;
+    }
+
     public List<AdderessBookData> readAddressBookData() {
         String sql = "SELECT * FROM address_book_table; ";
         List<AdderessBookData> contactlist = new ArrayList<>();
@@ -12,15 +21,15 @@ public class AddressBookDB {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 Integer srNo = resultSet.getInt("srNo");
-                String firstName = resultSet.getNString("firstName");
-                String lastName = resultSet.getNString("lastName");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
                 String address = resultSet.getString("address");
                 String city = resultSet.getString("city");
                 String state = resultSet.getString("state");
                 String zip = resultSet.getString("zip");
-                String phone = resultSet.getString("phone");
+                String phoneNumber = resultSet.getString("phoneNumber");
                 String email = resultSet.getString("email");
-                contactlist.add(new AdderessBookData(srNo,firstName,lastName,address,city,state,zip,phone,email));
+                contactlist.add(new AdderessBookData(srNo,firstName,lastName,address,city,state,zip,phoneNumber,email));
                 }
             con.close();
         } catch (SQLException e) {
