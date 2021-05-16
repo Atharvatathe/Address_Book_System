@@ -12,4 +12,15 @@ public class AddressBoolDBTest {
         Assertions.assertEquals(2,addressbookData.size());
     }
 
+    //Uc17
+    @Test
+    public void givennewContact_WhenUpdate_ShouldSyncWithDB(){
+        AddressBookDB addressBookDB = new AddressBookDB();
+        List<AdderessBookData> addressbookData = addressBookDB.getInstance().readAddressBookData();
+        addressBookDB.updateAddressBookContact("Atharva,","8989898989");
+        boolean check = addressBookDB.checkAdderessBooksyncwithDB("Atharva");
+        Assertions.assertTrue(check);
+
+    }
+
 }

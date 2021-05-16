@@ -49,4 +49,45 @@ public class AddressBookDB {
         System.out.println("Connection is Successfull!!!" +con);
         return con;
     }
+
+    public void updateAddressBookContact(String firstName, String phoneNumber) {
+        int result = AddressBookDB.getInstance().updateAddressBookData(firstName, phoneNumber);
+        if (result == 0) return;
+        AdderessBookData addressbookdata = this.getAddressBookData(firstName);
+        if (addressbookdata != null) addressbookdata.phoneNumber = phoneNumber;
+    }
+
+    private AdderessBookData getAddressBookData(String firstName) {
+        AddressBookDB addressBookDB = new AddressBookDB();
+        List<AdderessBookData> addressbookDataList = addressBookDB.getInstance().readAddressBookData();
+        return addressbookDataList.stream()
+                .filter(adderessBookDataItem -> adderessBookDataItem.firstName.equalsIgnoreCase(firstName) )
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    private int updateAddressBookData(String firstName, String phoneNumber) {
+        return this.updateAddressbookDataUsingSatement(firstName, phoneNumber);
+    }
+
+    private int updateAddressbookDataUsingSatement(String firstName, String phoneNumber) {
+        String sql = String.format("UPDATE address_book_table set firstName = '%s' WHERE phoneNumber = '%s';", firstName,phoneNumber);
+        try (Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            return statement.executeUpdate(sql);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean checkAdderessBooksyncwithDB(String firstName) {
+        AddressBookDB addressBookDB = new AddressBookDB();
+        List<AdderessBookData> addressbookDataList = (List<AdderessBookData>) addressBookDB.getInstance().getAddressBookData(firstName);
+        return addressbookDataList.get(0).equals(getAddressBookData(firstName));
+    }
 }
+
+
+
